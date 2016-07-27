@@ -23,10 +23,6 @@ os:
   - osx
   - linux
 
-branches:
-  only:
-    - master
-
 # for the ruby-watchman gem
 #gemfile: ruby/ruby-watchman/Gemfile
 #rvm:
