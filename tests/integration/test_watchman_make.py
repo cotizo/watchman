@@ -34,9 +34,9 @@ class TestWatchmanMake(WatchmanTestCase.WatchmanTestCase):
         fake_env = dict(os.environ)
         fake_env['PYTHONPATH'] = ':'.join(sys.path)
         fake_env['PATH'] = fake_env['PATH'] + ':' + os.getcwd()
+        fake_env['WATCHMAN_SOCK'] = self.getClient().sockpath
         cmdline = [
             './python/bin/watchman-make',
-            '-U', self.getClient().sockpath,
             '-s', '0.05',
             '--root', root,
             '--make', '/bin/echo']
@@ -58,8 +58,6 @@ class TestWatchmanMake(WatchmanTestCase.WatchmanTestCase):
             self.touchRelative(root, "foo")
             time.sleep(1)
         (stdout, stderr) = self._run_test([], behavior)
-        print(stdout)
-        print(stderr)
         self.assertTrue(
             "any file" in stderr,
             'A message about any file triggers the build')
